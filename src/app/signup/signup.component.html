@@ -1,0 +1,56 @@
+<div class="register-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" style="text-align: center">
+          <h4>Register</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="signUpFormGroup" (submit)="signUp()">
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail
+                Address</label>
+              <div class="col-md-6">
+                <input [formControlName]="'email'" type="text" id="email_address" class="form-control"
+                  name="email-address" required autofocus>
+                <span *ngIf="this.signUpFormGroup.get('email').invalid && signUpFormGroup.get('email').touched">
+                  Please provide correct email
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label text-md-right">User Name</label>
+              <div class="col-md-6">
+                <input [formControlName]="'username'" type="text" class="form-control" required autofocus>
+                <span *ngIf="this.signUpFormGroup.get('username').invalid && signUpFormGroup.get('username').touched">
+                  Please provide correct username
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+              <div class="col-md-6">
+                <input [formControlName]="'password'" type="password" id="password" class="form-control" name="password"
+                  required>
+                <span *ngIf="this.signUpFormGroup.get('password').invalid && signUpFormGroup.get('password').touched">
+                  Please provide correct password
+                </span>
+              </div>
+            </div>
+
+            <div class="col-md-6 offset-md-4">
+              <button type="submit" class="sign-up">
+                Sign Up
+              </button>
+              <div>Existing user? <a routerLink="/login">Log In</a></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
