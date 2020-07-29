@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SignInRequestPayload } from './sign-in-request.payload';
 import { AuthService } from '../shared/auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,19 +12,31 @@ import { AuthService } from '../shared/auth.service';
 })
 export class SignInComponent implements OnInit {
   loginForm: FormGroup;
-  isError: false;
+  isError: boolean = false;
   signInRequestPayload: SignInRequestPayload;
 
   signIn() {
     this.signInRequestPayload.username = this.loginForm.get('username').value;
     this.signInRequestPayload.password = this.loginForm.get('password').value;
 
-    this.authService
-      .signIn(this.signInRequestPayload)
-      .subscribe((data) => console.log('Log in successfully', data));
+    this.authService.signIn(this.signInRequestPayload).subscribe(
+      (data) => {
+        console.log('Log in successfully', data);
+        this.isError = false;
+        this.router.navigate(['/']);
+      },
+      () => {
+        this.isError = true;
+        this.toastService.error('Sign in failed');
+      }
+    );
   }
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastrService
+  ) {
     this.signInRequestPayload = {
       username: '',
       password: '',

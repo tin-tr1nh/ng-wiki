@@ -4,5 +4,6 @@ export interface SignInRequestPayload {
 }
 
 export interface SignInResponse {
-  tokenValue: String
+  accessToken: String
+  refreshToken: String
 }

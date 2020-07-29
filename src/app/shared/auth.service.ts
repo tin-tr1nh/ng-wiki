@@ -27,9 +27,13 @@ export class AuthService {
   }
 
   signIn(payload: SignInRequestPayload): Observable<any> {
-    console.log("Call signIn")
     return this.httpClient
       .post<SignInResponse>(this.SIGN_IN_ENDPOINT, payload)
-    .pipe(map((data) => this.localStorage.store('token', data.tokenValue)));
+      .pipe(
+        map((data) => {
+          this.localStorage.store('accessToken', data.accessToken);
+          this.localStorage.store('refreshToken', data.refreshToken);
+        })
+      );
   }
 }
