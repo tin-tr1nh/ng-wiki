@@ -8,15 +8,12 @@ import {
   SignInResponse,
 } from '../sign-in/sign-in-request.payload';
 import { LocalStorageService } from 'ngx-webstorage';
+import { ApiDef } from './api.def';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly BACKEND_ENDPOINT = 'http://localhost:8080';
-  readonly SIGN_UP_ENDPOINT = `${this.BACKEND_ENDPOINT}/auth/register`;
-  readonly SIGN_IN_ENDPOINT = `${this.BACKEND_ENDPOINT}/auth/login`;
-  readonly REFRESH_TOKEN_ENDPOINT = `${this.BACKEND_ENDPOINT}/auth/refresh-token`;
 
   constructor(
     private httpClient: HttpClient,
@@ -24,12 +21,12 @@ export class AuthService {
   ) {}
 
   signUp(payload: SignUpRequestPayload): Observable<any> {
-    return this.httpClient.post(this.SIGN_UP_ENDPOINT, payload);
+    return this.httpClient.post(ApiDef.SIGN_UP_ENDPOINT, payload);
   }
 
   signIn(payload: SignInRequestPayload): Observable<any> {
     return this.httpClient
-      .post<SignInResponse>(this.SIGN_IN_ENDPOINT, payload)
+      .post<SignInResponse>(ApiDef.SIGN_IN_ENDPOINT, payload)
       .pipe(
         tap((data) => {
           this.localStorage.store('accessToken', data.accessToken);
@@ -43,7 +40,7 @@ export class AuthService {
       refreshToken: this.getRefreshToken(),
     };
     return this.httpClient
-      .post<SignInResponse>(this.REFRESH_TOKEN_ENDPOINT, refreshTokenPayload)
+      .post<SignInResponse>(ApiDef.REFRESH_TOKEN_ENDPOINT, refreshTokenPayload)
       .pipe(
         tap((response) => {
           this.localStorage.store('accessToken', response.accessToken);

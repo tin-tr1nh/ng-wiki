@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
     this.authService
       .signUp(this.signUpPayload)
       .subscribe(
-        (data) => this.router.navigate(['/finish-sign-up'], {queryParams: {registered: 'true'}}),
+        (data) => this.router.navigate(['/finish-sign-up']),
         () => this.toastService.error("Failed to sign up"));
   }
 }

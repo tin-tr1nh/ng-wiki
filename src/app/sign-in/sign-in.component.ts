@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
       (data) => {
         console.log('Log in successfully', data);
         this.isError = false;
-        this.router.navigate(['/']);
+        this.router.navigateByUrl('/');
       },
       () => {
         this.isError = true;
