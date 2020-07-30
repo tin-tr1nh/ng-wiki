@@ -1,9 +1,9 @@
 export interface SignInRequestPayload {
-  username: String,
-  password: String
+  username: string,
+  password: string
 }
 
 export interface SignInResponse {
-  accessToken: String
-  refreshToken: String
+  accessToken: string
+  refreshToken: string
 }
